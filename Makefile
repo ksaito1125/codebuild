@@ -1,9 +1,14 @@
 NAME=codebuild
 
-all: build
+all: test
+
+setup: codebuild.sh
 
 build:
 	docker build -t $(NAME) .
+
+test: codebuild.sh build
+	./codebuild.sh -i ubuntu:18.04 -a /tmp
 
 run:
 	docker run -it --rm --entrypoint sh $(NAME)
