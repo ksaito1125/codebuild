@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 cd /LocalBuild/agent-resources
 
@@ -18,7 +18,7 @@ then
     tail -F /codebuild/output/log &
     sh ./start > /dev/null
 else
-    AGENT_ID=$(docker ps | sed -n 2p | cut -c 1-12)
+    AGENT_ID=$(docker ps | grep "amazon/aws-codebuild-local" | cut -c 1-12)
     RETRY=0
     MAX_RETRIES=3
     while [[ -z ${AGENT_ID} ]]; do
